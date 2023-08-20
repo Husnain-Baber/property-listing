@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 
 const PropertyCard = (props) => {
@@ -11,10 +12,9 @@ const PropertyCard = (props) => {
         height={200}
         />
         <div className='desc'>
-        {/* <h2>
-            <Link to={`/show-property/${property._id}`}>{property.title}</Link>
-        </h2> */}
-        <h2>{property.title}</h2>
+        <h2>
+            <Link to={`/show-listing/${property._id}`}>{property.title}</Link>
+        </h2>
         <h3>{property.author}</h3>
         <p>{property.description}</p>
         </div>
