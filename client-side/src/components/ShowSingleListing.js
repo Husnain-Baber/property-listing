@@ -31,37 +31,34 @@ const ShowSingleListing = (props) => {
 
     const BookItem = (
         <div>
-          <table className='table table-hover table-dark'>
+          <h2>{property.title}</h2>
+          <p>{property.description}</p>
+          <table className='table text-light'>
             <tbody>
+            
               <tr>
-                <th scope='row'>1</th>
-                <td>Title</td>
-                <td>{property.title}</td>
+
+                <td>Property Type</td>
+                <td>{property.property_type}</td>
+
+
+                <td>Number of Rooms</td>
+                <td>{property.rooms}</td>
               </tr>
               <tr>
-                <th scope='row'>2</th>
-                <td>Author</td>
-                <td>{property.author}</td>
+
+                <td>Number of Bathrooms</td>
+                <td>{property.bathrooms}</td>
+             
+                <td>Covered Area</td>
+                <td>{property.area} {property.area_unit}</td>
               </tr>
               <tr>
-                <th scope='row'>3</th>
-                <td>ISBN</td>
-                <td>{property.isbn}</td>
-              </tr>
-              <tr>
-                <th scope='row'>4</th>
-                <td>Publisher</td>
-                <td>{property.publisher}</td>
-              </tr>
-              <tr>
-                <th scope='row'>5</th>
-                <td>Published Date</td>
-                <td>{property.published_date}</td>
-              </tr>
-              <tr>
-                <th scope='row'>6</th>
-                <td>Description</td>
-                <td>{property.description}</td>
+                <td>Status</td>
+                <td>{property.status}</td>
+             
+                <td>Price</td>
+                <td>{property.price}</td>
               </tr>
             </tbody>
           </table>

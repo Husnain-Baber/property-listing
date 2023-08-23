@@ -6,11 +6,15 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 const EditListing = () => {
     const [property, setProperty] = useState({
         title: '',
-        isbn: '',
-        author: '',
         description: '',
-        published_date: '',
-        publisher: '',
+        property_type: '',
+        level: '',
+        rooms: '',
+        bathrooms: '',
+        area: '',
+        unit_area: '',
+        status: '',
+        price: '',
     })
     const { id } = useParams();
     const navigate = useNavigate();
@@ -20,12 +24,18 @@ const EditListing = () => {
           .get(`http://localhost:8082/api/properties/${id}`)
           .then((res) => {
             setProperty({
+
+
               title: res.data.title,
-              isbn: res.data.isbn,
-              author: res.data.author,
               description: res.data.description,
-              published_date: res.data.published_date,
-              publisher: res.data.publisher,
+              property_type: res.data.property_type,
+              level: res.data.level,
+              rooms: res.data.rooms,
+              bathrooms: res.data.bathrooms,
+              area: res.data.area,
+              unit_area: res.data.unit_area,
+              status: res.data.status,
+              price: res.data.price,
             });
           })
           .catch((err) => {

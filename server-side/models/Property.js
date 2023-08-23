@@ -5,22 +5,39 @@ const PropertySchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  isbn: {
-    type: String,
-    required: true
-  },
-  author: {
-    type: String,
-    required: true
-  },
   description: {
     type: String
   },
-  published_date: {
-    type: Date
+  property_type: {
+    type: String,
+    required: true
   },
-  publisher: {
+  level: {
+    type: Number,
+    required: true
+  },
+  rooms: {
+    type: Number,
+    required: true
+  },
+  bathrooms: {
+    type: Number,
+    required: true
+  },
+  area: {
+    type: Number,
+    required: true
+  },
+  area_unit: {
+    type: String,
+    required: true
+  },
+  status: {
     type: String
+  },
+  price: {
+    type: Number,
+    required: true
   },
   updated_date: {
     type: Date,
