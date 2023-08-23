@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 
 
 const EditListing = () => {
+  // const [propertyStatus, setPropertyStatus] = useState('')
     const [property, setProperty] = useState({
         title: '',
         description: '',
@@ -12,7 +13,7 @@ const EditListing = () => {
         rooms: '',
         bathrooms: '',
         area: '',
-        unit_area: '',
+        area_unit: '',
         status: '',
         price: '',
     })
@@ -25,7 +26,7 @@ const EditListing = () => {
           .then((res) => {
             setProperty({
 
-
+              
               title: res.data.title,
               description: res.data.description,
               property_type: res.data.property_type,
@@ -33,7 +34,7 @@ const EditListing = () => {
               rooms: res.data.rooms,
               bathrooms: res.data.bathrooms,
               area: res.data.area,
-              unit_area: res.data.unit_area,
+              area_unit: res.data.area_unit,
               status: res.data.status,
               price: res.data.price,
             });
@@ -53,11 +54,15 @@ const EditListing = () => {
 
     const data = {
       title: property.title,
-      isbn: property.isbn,
-      author: property.author,
       description: property.description,
-      published_date: property.published_date,
-      publisher: property.publisher,
+      property_type: property.property_type,
+      level: property.level,
+      rooms: property.rooms,
+      bathrooms: property.bathrooms,
+      area: property.area,
+      area_unit: property.area_unit,
+      status: property.status,
+      price: property.price,
     };
 
     axios
@@ -66,7 +71,7 @@ const EditListing = () => {
         navigate(`/show-listing/${id}`);
       })
       .catch((err) => {
-        console.log('Error!', err);
+        console.log('Error in update!', err);
       });
   };
   return (
@@ -87,83 +92,127 @@ const EditListing = () => {
 
         <div className='col-md-8 m-auto'>
           <form noValidate onSubmit={onSubmit}>
-            <div className='form-group'>
-              <label htmlFor='title'>Title</label>
-              <input
-                type='text'
-                placeholder='Title of the Book'
-                name='title'
-                className='form-control'
-                value={property.title}
-                onChange={onChange}
-              />
-            </div>
-            <br />
+            <div className='row'>
+          <div className='col-md-6 mb-3'>
+                <label>Title </label>
+                <input
+                  type='text'
+                  placeholder='E.g: Flat for rent'
+                  name='title'
+                  className='form-control'
+                  value={property.title}
+                  onChange={onChange}
+                />
+              </div>
 
-            <div className='form-group'>
-              <label htmlFor='isbn'>ISBN</label>
-              <input
-                type='text'
-                placeholder='ISBN'
-                name='isbn'
-                className='form-control'
-                value={property.isbn}
-                onChange={onChange}
-              />
-            </div>
-            <br />
+              <div className='col-md-6 mb-3'>
+              <label>Description </label>
+                <input
+                  type='text'
+                  placeholder='Description of the property'
+                  name='description'
+                  className='form-control'
+                  value={property.description}
+                  onChange={onChange}
+                />
+              </div>
 
-            <div className='form-group'>
-              <label htmlFor='author'>Author</label>
-              <input
-                type='text'
-                placeholder='Author'
-                name='author'
-                className='form-control'
-                value={property.author}
-                onChange={onChange}
-              />
-            </div>
-            <br />
+               <div className='col-md-6 mb-3'>
+               <label>Property Type </label>
+               <select className='form-control' name='property_type' onChange={onChange} value={property.property_type}>
+                <option value=''>Select Property Type</option>
+                <option value='Apartment'>Apartment</option>
+                <option value='Banglow'>Banglow</option>
+                <option value='House'>House</option>
+                <option value='Land'>Land</option>
+                <option value='Plot'>Plot</option>
+                <option value='Shop'>Shop</option>
+               </select>
+              </div>
 
-            <div className='form-group'>
-              <label htmlFor='description'>Description</label>
-              <textarea
-                type='text'
-                placeholder='Description of the Book'
-                name='description'
-                className='form-control'
-                value={property.description}
-                onChange={onChange}
-              />
-            </div>
-            <br />
+              <div className='col-md-6 mb-3'>
+              <label>Floor Level</label>
+                <input
+                  type='number'
+                  placeholder='Floor Level'
+                  name='level'
+                  className='form-control'
+                  value={property.level}
+                  onChange={onChange}
+                />
+              </div>
 
-            <div className='form-group'>
-              <label htmlFor='published_date'>Published Date</label>
-              <input
-                type='text'
-                placeholder='Published Date'
-                name='published_date'
-                className='form-control'
-                value={property.published_date}
-                onChange={onChange}
-              />
-            </div>
-            <br />
+              <div className='col-md-6 mb-3'>
+              <label>Number of Rooms</label>
+                <input
+                  type='number'
+                  placeholder='No. of rooms'
+                  name='rooms'
+                  className='form-control'
+                  value={property.rooms}
+                  onChange={onChange}
+                />
+              </div>
+              <div className='col-md-6 mb-3'>
+              <label>Number of Bathrooms </label>
+                <input
+                  type='number'
+                  placeholder='E.g: 2'
+                  name='bathrooms'
+                  className='form-control'
+                  value={property.bathrooms}
+                  onChange={onChange}
+                />
+              </div>
+              <div className='col-md-6 mb-3'>
+              <label>Total Area </label>
+                <input
+                  type='number'
+                  placeholder='E.g: 1200'
+                  name='area'
+                  className='form-control'
+                  value={property.area}
+                  onChange={onChange}
+                />
+              </div>
+              <div className='col-md-6 mb-3'>
+              <label>Area Unit </label>
+              <select className='form-control' name='area_unit' onChange={onChange} value={property.area_unit}>
+                <option value=''>Select Unit</option>
+                <option value='Square meter'>Square meter</option>
+                <option value='Square yard'>Square yard</option>
+               </select>
+              </div>
+              <div className='col-md-6 mb-3'>
 
-            <div className='form-group'>
-              <label htmlFor='publisher'>Publisher</label>
-              <input
-                type='text'
-                placeholder='Publisher of the Book'
-                name='publisher'
-                className='form-control'
-                value={property.publisher}
-                onChange={onChange}
-              />
-            </div>
-            <br />
+                <label>Status </label>
+                <div>
+                <div className="form-check form-check-inline">
+                  <input className="form-check-input" type="radio" name="status" id="inlineRadio1" value='Furnished' checked={property.status == 'Furnished'} onChange={onChange} />
+                  <label className="form-check-label" htmlFor="inlineRadio1">Furnished</label>
+                </div>
+                <div className="form-check form-check-inline">
+                  <input className="form-check-input" type="radio" name="status" id="inlineRadio2" value='Not Furnished' checked={property.status == 'Not Furnished'}  onChange={onChange} />
+                  <label className="form-check-label" htmlFor="inlineRadio2">Not Furnished</label>
+                </div>
+                </div>
+                {/* <select className='form-control' name='status' onChange={onChange}>
+                  <option value=''>Select Status</option>
+                  <option value='Square meter'>Furnished</option>
+                  <option value='Square yard'>Not Furnished</option>
+                </select> */}
+              </div>
+              <div className='col-md-6 mb-3'>
+              <label>Price</label>
+                <input
+                  type='number'
+                  placeholder='Price'
+                  name='price'
+                  className='form-control'
+                  value={property.price}
+                  onChange={onChange}
+                />
+              </div>
 
             <button
               type='submit'
@@ -171,6 +220,7 @@ const EditListing = () => {
             >
               Update Listing
             </button>
+            </div>
           </form>
         </div>
       </div>

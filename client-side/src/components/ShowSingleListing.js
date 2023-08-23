@@ -31,22 +31,38 @@ const ShowSingleListing = (props) => {
 
     const BookItem = (
         <div>
-          <h2>{property.title}</h2>
+          <div className='d-flex align-items-center justify-content-between'>
+            <h2>{property.title}</h2>
+            <div>
+            <button
+              type='button'
+              className='btn btn-outline-danger btn-lg btn-block'
+              onClick={() => {
+                onDeleteClick(property._id);
+              }}
+            >
+              <i className='fa fa-trash'></i>
+            </button>
+
+            <Link
+              to={`/edit-listing/${property._id}`}
+              className='btn btn-outline-info btn-lg btn-block'
+            >
+              <i className='fa fa-edit'></i>
+            </Link>
+            </div>
+          </div>
           <p>{property.description}</p>
           <table className='table text-light'>
             <tbody>
-            
               <tr>
-
                 <td>Property Type</td>
                 <td>{property.property_type}</td>
-
 
                 <td>Number of Rooms</td>
                 <td>{property.rooms}</td>
               </tr>
               <tr>
-
                 <td>Number of Bathrooms</td>
                 <td>{property.bathrooms}</td>
              
@@ -81,25 +97,6 @@ const ShowSingleListing = (props) => {
             <hr /> <br />
           </div>
           <div className='col-md-10 m-auto'>{BookItem}</div>
-          <div className='col-md-6 m-auto'>
-            <button
-              type='button'
-              className='btn btn-outline-danger btn-lg btn-block'
-              onClick={() => {
-                onDeleteClick(property._id);
-              }}
-            >
-              Delete Listing
-            </button>
-          </div>
-          <div className='col-md-6 m-auto'>
-            <Link
-              to={`/edit-listing/${property._id}`}
-              className='btn btn-outline-info btn-lg btn-block'
-            >
-              Edit Listing
-            </Link>
-          </div>
         </div>
       </div>
     </div>

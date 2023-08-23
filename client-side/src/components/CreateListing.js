@@ -68,7 +68,7 @@ const CreateListing = (props) => {
                 <label>Title </label>
                 <input
                   type='text'
-                  placeholder='Title of the Book'
+                  placeholder='E.g: Flat for rent'
                   name='title'
                   className='form-control'
                   value={property.title}
@@ -80,7 +80,7 @@ const CreateListing = (props) => {
               <label>Description </label>
                 <input
                   type='text'
-                  placeholder='Describe this book'
+                  placeholder='Description of the property'
                   name='description'
                   className='form-control'
                   value={property.description}

@@ -11,6 +11,9 @@ const ShowListing = () => {
   const navigateDetail = (id) => {
     navigate(`/show-listing/${id}`)
   }
+  const navigateUpdate = (id) => {
+    navigate(`/edit-listing/${id}`)
+  }
   const onDeleteClick = (id) => {
     axios
       .delete(`http://localhost:8082/api/properties/${id}`)
@@ -49,7 +52,7 @@ const ShowListing = () => {
         <td>
           <div className="btn-group" role="group" aria-label="Basic mixed styles example">
             <button type="button" className="btn btn-success" onClick={() => navigateDetail(property._id)}> <i className="fa fa-eye"></i> </button>
-            <button type="button" className="btn btn-secondary"><i className="fa fa-edit"></i> </button>
+            <button type="button" className="btn btn-secondary"><i className="fa fa-edit" onClick={() => navigateUpdate(property._id)}></i> </button>
             <button type="button" className="btn btn-danger" onClick={() => 
                 onDeleteClick(property._id)}><i className="fa fa-trash"></i> </button>
           </div>
