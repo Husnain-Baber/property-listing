@@ -81,7 +81,7 @@ const ShowSingleListing = (props) => {
         </div>
       );
   return (
-    <div className='ShowBookDetails'>
+    <div className='ShowPropertyDetails'>
       <div className='container'>
         <div className='row'>
           <div className='col-md-10 m-auto'>

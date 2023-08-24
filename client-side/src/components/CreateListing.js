@@ -49,7 +49,7 @@ const CreateListing = (props) => {
       });
   };
   return (
-    <div className='CreateBook'>
+    <div className='CreateProperty'>
       <div className='container'>
         <div className='row'>
           <div className='col-md-8 m-auto'>
@@ -62,19 +62,19 @@ const CreateListing = (props) => {
             <h1 className='display-4 text-center'>Add Property</h1>
             <p className='lead text-center'>Create new property</p>
 
-            <form noValidate onSubmit={onSubmit}>
-                <div className='row'>
-              <div className='col-md-6 mb-3'>
-                <label>Title </label>
-                <input
-                  type='text'
-                  placeholder='E.g: Flat for rent'
-                  name='title'
-                  className='form-control'
-                  value={property.title}
-                  onChange={onChange}
-                />
-              </div>
+              <form noValidate onSubmit={onSubmit}>
+                  <div className='row'>
+                <div className='col-md-6 mb-3'>
+                  <label>Title </label>
+                  <input
+                    type='text'
+                    placeholder='E.g: Flat for rent'
+                    name='title'
+                    className='form-control'
+                    value={property.title}
+                    onChange={onChange}
+                  />
+                </div>
 
               <div className='col-md-6 mb-3'>
               <label>Description </label>

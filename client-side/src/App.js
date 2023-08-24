@@ -6,6 +6,7 @@ import ShowListing from './components/ShowListing';
 import CreateListing from './components/CreateListing';
 import ShowSingleListing from './components/ShowSingleListing';
 import EditListing from './components/EditListing';
+import FilterListing from './components/FilterListing';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route path='/create-listing' element={<CreateListing />} />
           <Route path='/show-listing/:id' element={<ShowSingleListing />} />
           <Route path='/edit-listing/:id' element={<EditListing />} />
+          <Route path='/filter-listing' element={<FilterListing />} />
         </Routes>
         </div>
     </BrowserRouter>

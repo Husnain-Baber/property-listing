@@ -15,7 +15,7 @@ router.get('/test', (req, res) => res.send('property route testing!'));
 router.get('/', (req, res) => {
   Property.find()
     .then(properties => res.json(properties))
-    .catch(err => res.status(404).json({ nobooksfound: 'No Record Found' }));
+    .catch(err => res.status(404).json({ norecordfound: 'No Record Found' }));
 });
 
 // @route GET api/books/:id
@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   Property.findById(req.params.id)
     .then(property => res.json(property))
-    .catch(err => res.status(404).json({ nobookfound: 'No Record Found' }));
+    .catch(err => res.status(404).json({ Error: 'No Record Found' }));
 });
 
 // @route GET api/books
@@ -53,7 +53,19 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   Property.findByIdAndRemove(req.params.id, req.body)
     .then(property => res.json({ mgs: 'Property deleted successfully' }))
-    .catch(err => res.status(404).json({ error: 'No such a book' }));
+    .catch(err => res.status(404).json({ error: 'No such a listing' }));
 });
 
+// Find listing by title
+
+router.get('/property/:property_type', (req, res) => {
+  Property.find({ property_type: req.params.property_type })
+    .then(property => {
+      if (!property) {
+        return res.status(404).json({ propertyNotFound: 'No Property Found with this Query' });
+      }
+      res.json(property);
+    })
+    .catch(err => res.status(400).json({ error: err }));
+});
 module.exports = router;

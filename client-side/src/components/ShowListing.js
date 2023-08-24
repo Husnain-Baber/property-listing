@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import PropertyCard from './PropertyCard';
+// import PropertyCard from './PropertyCard';
+import Spinner from './Spinner'
 
 
 const ShowListing = () => {
   const [properties, setProperties] = useState([]);
+  const [loader, setLoader] = useState(true);
   const navigate = useNavigate();
 
   const navigateDetail = (id) => {
@@ -31,6 +33,7 @@ const ShowListing = () => {
     .get('http://localhost:8082/api/properties')
     .then((res) => {
       setProperties(res.data);
+      setLoader(false)
     })
     .catch((err) => {
       console.log('Error in show listing: ' , err)
@@ -62,47 +65,51 @@ const ShowListing = () => {
   })
 
   return (
-    <div className='ShowBookList'>
+    <div className='ShowPropertyList'>
       <div className='container'>
-      <div className='row'>
-          <div className='col-md-12'>
-            <br />
-            <h2 className='display-4 text-center'>Property Listing</h2>
-          </div>
+        <div className=''>
+          <h2 className='display-4 text-center'>Property Listing</h2>
+        </div>
 
-          <div className='col-md-11'>
+        <div className='d-flex align-itmes-center justify-content-between'>
+          <Link
+            to='/create-listing'
+            className='btn btn-outline-warning float-right'
+          >
+            + Add New Property
+          </Link>
+          <div>
             <Link
-              to='/create-listing'
-              className='btn btn-outline-warning float-right'
-            >
-              + Add New Property
-            </Link>
-            <br />
-            <br />
-            <hr />
+              to='/filter-listing'
+              className='btn btn-outline-success' >
+                <i className='fa fa-filter'></i>
+              </Link>
           </div>
         </div>
-        {/* <div className='list'>{propertyList}</div> */}
-        <table className='table table-hover table-dark'>
-          <thead>
-            <tr>
-              <td>Serial#</td>
-              <td>Title</td>
-              <td>Type</td>
-              <td>Rooms</td>
-              <td>Bathrooms</td>
-              <td>Area</td>
-              <td>Price</td>
-              <td>Action</td>
-            </tr>
-          </thead>
+        <hr />
+        <div className='table-responsive'>
+          <table className='table table-hover table-dark'>
+            <thead>
+              <tr>
+                <td>Serial#</td>
+                <td>Title</td>
+                <td>Type</td>
+                <td>Rooms</td>
+                <td>Bathrooms</td>
+                <td>Area</td>
+                <td>Price</td>
+                <td>Action</td>
+              </tr>
+            </thead>
             <tbody>
-              {propertyTableList}
+            {
+              loader ?  <tr><td colSpan={8}><Spinner /></td></tr> : propertyTableList
+            }
             </tbody>
           </table>
+        </div>
       </div>
     </div>
-
   )
 }
 

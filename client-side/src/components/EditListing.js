@@ -75,7 +75,7 @@ const EditListing = () => {
       });
   };
   return (
-    <div className='UpdateBookInfo'>
+    <div className='UpdatePropertyInfo'>
       <div className='container'>
         <div className='row'>
           <div className='col-md-8 m-auto'>
