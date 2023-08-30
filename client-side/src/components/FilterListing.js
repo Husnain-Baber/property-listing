@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import MultiRangeSlider from './MultiRangeSlider';
 
 const FilterListing = () => {
     const [property, setProperty] = useState({});
@@ -50,19 +51,51 @@ const FilterListing = () => {
             <hr />
             <form noValidate onSubmit={onSubmit}>
                 <div className='row'>
-                <div className='col-md-6 mb-3'>
-               <label>Property Type </label>
-               <select className='form-control' name='property_type' onChange={onChange}>
-                <option value=''>Select Property Type</option>
-                <option value='Apartment'>Apartment</option>
-                <option value='Banglow'>Banglow</option>
-                <option value='House'>House</option>
-                <option value='Land'>Land</option>
-                <option value='Plot'>Plot</option>
-                <option value='Shop'>Shop</option>
-               </select>
-              </div>
-                    
+                  <div className='col-md-3 mb-3'>
+                    <label className='form-label'>Property Type </label>
+                    <select className='form-control' name='property_type' onChange={onChange}>
+                      <option value=''>Select Property Type</option>
+                      <option value='Apartment'>Apartment</option>
+                      <option value='Banglow'>Banglow</option>
+                      <option value='House'>House</option>
+                      <option value='Land'>Land</option>
+                      <option value='Plot'>Plot</option>
+                      <option value='Shop'>Shop</option>
+                    </select>
+                  </div>
+                  <div className='col-md-3 mb-3'>
+                    <label className='form-label'>Number of Rooms </label>
+                    <select className='form-control' name='rooms' onChange={onChange}>
+                      <option value=''>Select No. of Rooms</option>
+                      <option value='1'>1</option>
+                      <option value='2'>2</option>
+                      <option value='3'>3</option>
+                      <option value='4'>4</option>
+                      <option value='5'>5</option>
+                      <option value='6'>6</option>
+                    </select>
+                  </div>
+                  <div className='col-md-3 mb-3'>
+                    <label className='form-label'>Floor Level </label>
+                    <select className='form-control' name='level' onChange={onChange}>
+                      <option value=''>Select Floor Level</option>
+                      <option value='0'>0</option>
+                      <option value='1'>1</option>
+                      <option value='2'>2</option>
+                      <option value='3'>3</option>
+                      <option value='4'>4</option>
+                      <option value='5'>5</option>
+                      <option value='6'>6</option>
+                    </select>
+                  </div>
+                  <div className='col-md-3 mb-3'>
+                  <label className='form-label'>Covered Area Range</label>
+                  <MultiRangeSlider
+                    min={10}
+                    max={2000}
+                    onChange={({ min, max }) => console.log(`min = ${min}, max = ${max}`)}
+                  />
+                  </div>
                 </div>
                 <button
                     type='submit'

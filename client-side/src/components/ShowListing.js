@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 // import PropertyCard from './PropertyCard';
 import Spinner from './Spinner'
-
+import { SlTrash, SlEye, SlPencil } from "react-icons/sl";
+import { FiFilter, FiPlus } from "react-icons/fi";
 
 const ShowListing = () => {
   const [properties, setProperties] = useState([]);
@@ -54,10 +55,10 @@ const ShowListing = () => {
         <td>{property.price}</td>
         <td>
           <div className="btn-group" role="group" aria-label="Basic mixed styles example">
-            <button type="button" className="btn btn-success" onClick={() => navigateDetail(property._id)}> <i className="fa fa-eye"></i> </button>
-            <button type="button" className="btn btn-secondary"><i className="fa fa-edit" onClick={() => navigateUpdate(property._id)}></i> </button>
+            <button type="button" className="btn btn-success" onClick={() => navigateDetail(property._id)}> <SlEye /> </button>
+            <button type="button" className="btn btn-secondary" onClick={() => navigateUpdate(property._id)}> <SlPencil /> </button>
             <button type="button" className="btn btn-danger" onClick={() => 
-                onDeleteClick(property._id)}><i className="fa fa-trash"></i> </button>
+                onDeleteClick(property._id)}><SlTrash /> </button>
           </div>
         </td>
       </tr>
@@ -76,13 +77,13 @@ const ShowListing = () => {
             to='/create-listing'
             className='btn btn-outline-warning float-right'
           >
-            + Add New Property
+            <FiPlus /> Add Listing
           </Link>
           <div>
             <Link
               to='/filter-listing'
               className='btn btn-outline-success' >
-                <i className='fa fa-filter'></i>
+                <FiFilter />
               </Link>
           </div>
         </div>
