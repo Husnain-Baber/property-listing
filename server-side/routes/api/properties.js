@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
-// Load Book model
+// Load model
 const Property = require('../../models/Property');
 
-// @route GET api/books/test
+// @route GET api/properties/test
 // @description tests books route
 // @access Public
 router.get('/test', (req, res) => res.send('property route testing!'));
 
-// @route GET api/books
+// @route GET api/properties
 // @description Get all books
 // @access Public
 router.get('/', (req, res) => {
@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
     .catch(err => res.status(404).json({ norecordfound: 'No Record Found' }));
 });
 
-// @route GET api/books/:id
+// @route GET api/properties/:id
 // @description Get single book by id
 // @access Public
 router.get('/:id', (req, res) => {
@@ -27,7 +27,7 @@ router.get('/:id', (req, res) => {
     .catch(err => res.status(404).json({ Error: 'No Record Found' }));
 });
 
-// @route GET api/books
+// @route GET api/properties
 // @description add/save book
 // @access Public
 router.post('/', (req, res) => {
@@ -36,8 +36,8 @@ router.post('/', (req, res) => {
     .catch(err => res.status(400).json({ error: 'Unable to add this property' }));
 });
 
-// @route GET api/books/:id
-// @description Update book
+// @route GET api/properties/:id
+// @description Update properties
 // @access Public
 router.put('/:id', (req, res) => {
   Property.findByIdAndUpdate(req.params.id, req.body)
@@ -47,8 +47,8 @@ router.put('/:id', (req, res) => {
     );
 });
 
-// @route GET api/books/:id
-// @description Delete book by id
+// @route GET api/properties/:id
+// @description Delete properties by id
 // @access Public
 router.delete('/:id', (req, res) => {
   Property.findByIdAndRemove(req.params.id, req.body)

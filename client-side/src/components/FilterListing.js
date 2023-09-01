@@ -43,15 +43,15 @@ const FilterListing = () => {
           });
       };
   return (
-    <div className='ShowPropertyList'>
-        <div className='container'>
+    <div className=''>
+        <div className='' style={{width:'300px',position:'fixed',height:'100%',padding:'20px', top: '0px', backgroundColor: '#212529'}}>
             <div className=''>
-                <h2 className='display-4 text-center'>Filter Listing</h2>
+                <h4 className='display-6 text-center'>Filter Listing</h4>
             </div>
             <hr />
             <form noValidate onSubmit={onSubmit}>
                 <div className='row'>
-                  <div className='col-md-3 mb-3'>
+                  <div className='col-12 mb-3'>
                     <label className='form-label'>Property Type </label>
                     <select className='form-control' name='property_type' onChange={onChange}>
                       <option value=''>Select Property Type</option>
@@ -63,7 +63,7 @@ const FilterListing = () => {
                       <option value='Shop'>Shop</option>
                     </select>
                   </div>
-                  <div className='col-md-3 mb-3'>
+                  <div className='col-12 mb-3'>
                     <label className='form-label'>Number of Rooms </label>
                     <select className='form-control' name='rooms' onChange={onChange}>
                       <option value=''>Select No. of Rooms</option>
@@ -75,7 +75,7 @@ const FilterListing = () => {
                       <option value='6'>6</option>
                     </select>
                   </div>
-                  <div className='col-md-3 mb-3'>
+                  <div className='col-12 mb-3'>
                     <label className='form-label'>Floor Level </label>
                     <select className='form-control' name='level' onChange={onChange}>
                       <option value=''>Select Floor Level</option>
@@ -88,7 +88,7 @@ const FilterListing = () => {
                       <option value='6'>6</option>
                     </select>
                   </div>
-                  <div className='col-md-3 mb-3'>
+                  <div className='col-12 mb-3'>
                   <label className='form-label'>Covered Area Range</label>
                   <MultiRangeSlider
                     min={10}
@@ -96,13 +96,14 @@ const FilterListing = () => {
                     onChange={({ min, max }) => console.log(`min = ${min}, max = ${max}`)}
                   />
                   </div>
-                </div>
+                
                 <button
                     type='submit'
                     className='btn btn-outline-info btn-lg btn-block'
                     >
                     Search
                 </button>
+                </div>
             </form>
             
         </div>

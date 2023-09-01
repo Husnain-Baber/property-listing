@@ -1,5 +1,5 @@
 :root {
-    --SLICE-WIDTH: 300px;
+    --SLICE-WIDTH: 260px;
     --THUMB-COLOR: rgb(225, 225, 225);
     --THUMB-SIZE: 19px;
   }
@@ -99,8 +99,8 @@
   
   .slider__left-value,
   .slider__right-value {
-    color: cornflowerblue;
-    font-size: 12px;
+    color: rgb(226, 226, 226);
+    font-size: 16px;
     margin-top: 20px;
   }
   
