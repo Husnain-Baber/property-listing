@@ -1,42 +1,21 @@
-import React, { useState } from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 
-import ShowListing from './components/ShowListing';
-import CreateListing from './components/CreateListing';
-import ShowSingleListing from './components/ShowSingleListing';
-import EditListing from './components/EditListing';
-import FilterListing from './components/FilterListing';
-import Footer from './components/layout/Footer';
-import Header from './components/layout/Header';
-import Register from './components/auth/Register';
-
-
-// const DefaultLayout = React.lazy(() => import('./components/DefaultLayout'))
-// const Login = React.lazy(() => import('./views/Login'))
-// const Register = React.lazy(() => import('./views/Register'))
-// const Color = React.lazy(() => import('./views/Color'))
+const DefaultLayout = React.lazy(() => import('./components/DefaultLayout'))
+const Register = React.lazy(() => import('./components/auth/Register'))
+const Login = React.lazy(() => import('./components/auth/Login'))
 
 const App = () => {
   return (
     <BrowserRouter>
-      
-      <div>
-        <Header />
-        <FilterListing />
+      <Suspense>
         <Routes>
-        
-          <Route exact path='/' element={<ShowListing />} />
-          <Route path='/create-listing' element={<CreateListing />} />
-          <Route path='/show-listing/:id' element={<ShowSingleListing />} />
-          <Route path='/edit-listing/:id' element={<EditListing />} />
-          <Route path='/filter-listing' element={<FilterListing />} />
+          <Route path='*' name="Home" element={<DefaultLayout />} />
+          <Route path='/register' name="Register" element={<Register />} />
+          <Route path='/login' name="Login" element={<Login />} />
         </Routes>
-        <Footer />
-        </div>
-        <Routes>
-          <Route path='/register' element={<Register />} />
-        </Routes>
+      </Suspense>
     </BrowserRouter>
   )
 }

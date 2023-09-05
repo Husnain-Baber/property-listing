@@ -188,19 +188,14 @@ const EditListing = () => {
                 <label>Status </label>
                 <div>
                 <div className="form-check form-check-inline">
-                  <input className="form-check-input" type="radio" name="status" id="inlineRadio1" value='Furnished' checked={property.status == 'Furnished'} onChange={onChange} />
+                  <input className="form-check-input" type="radio" name="status" id="inlineRadio1" value='Furnished' checked={property.status === 'Furnished'} onChange={onChange} />
                   <label className="form-check-label" htmlFor="inlineRadio1">Furnished</label>
                 </div>
                 <div className="form-check form-check-inline">
-                  <input className="form-check-input" type="radio" name="status" id="inlineRadio2" value='Not Furnished' checked={property.status == 'Not Furnished'}  onChange={onChange} />
+                  <input className="form-check-input" type="radio" name="status" id="inlineRadio2" value='Not Furnished' checked={property.status === 'Not Furnished'}  onChange={onChange} />
                   <label className="form-check-label" htmlFor="inlineRadio2">Not Furnished</label>
                 </div>
                 </div>
-                {/* <select className='form-control' name='status' onChange={onChange}>
-                  <option value=''>Select Status</option>
-                  <option value='Square meter'>Furnished</option>
-                  <option value='Square yard'>Not Furnished</option>
-                </select> */}
               </div>
               <div className='col-md-6 mb-3'>
               <label>Price</label>

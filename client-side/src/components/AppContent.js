@@ -1,23 +1,24 @@
 import React from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import routes from '../routes'
 
 const AppContent = () => {
   return (
     <Routes>
         {
-            routes.map((route) => {
+            routes.map((route, i) => {
                 return(
+
                     <Route
-                        key={route.id}
+                        key={i}
                         path={route.path}
-                        name={route.name}
                         element={<route.element />}
                     />
+
                 )
             })
         }
-    </Routes>
+     </Routes>
   )
 }
 

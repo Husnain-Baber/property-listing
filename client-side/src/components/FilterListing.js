@@ -6,13 +6,12 @@ const FilterListing = () => {
     const [property, setProperty] = useState({});
     const onChange = (e) => {
         setProperty({ [e.target.name]: e.target.value });
-        // console.log(property)
       };
     
-      const onSubmit = (e) => {
-        e.preventDefault();
-        const data = {
-            property_type: property.property_type,
+      const onSubmit = () => {
+        // e.preventDefault();
+        // const data = {
+            // property_type: property.property_type,
             // description: property.description,
             // property_type: property.property_type,
             // level: property.level,
@@ -22,7 +21,7 @@ const FilterListing = () => {
             // area_unit: property.area_unit,
             // status: property.status,
             // price: property.price,
-          };
+          // };
         axios
           .get(`http://localhost:8082/api/properties/property/${property.property_type}`)
           .then((res) => {
@@ -31,8 +30,7 @@ const FilterListing = () => {
                 description: res.data[0].description,
                 property_type: res.data[0].property_type,
                 rooms: res.data[0].rooms,
-                bathrooms: res.data[0].property_type,
-                property_type: res.data[0].property_type,
+                bathrooms: res.data[0].property_type
             });
             console.log(res.data[0].title)
             // Push to /

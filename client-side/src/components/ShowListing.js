@@ -4,8 +4,7 @@ import axios from 'axios'
 // import PropertyCard from './PropertyCard';
 import Spinner from './Spinner'
 import { SlTrash, SlEye, SlPencil } from "react-icons/sl";
-import { FiFilter, FiPlus } from "react-icons/fi";
-import FilterListing from './FilterListing';
+import { FiPlus } from "react-icons/fi";
 
 const ShowListing = () => {
   const [properties, setProperties] = useState([]);
@@ -68,12 +67,10 @@ const ShowListing = () => {
 
   return (
     <div className='ShowPropertyList'>
-      {/* <FilterListing /> */}
       <div className=''>
         <div className=''>
           <h2 className='display-4 text-center'>Property Listing</h2>
         </div>
-
         <div className='d-flex align-itmes-center justify-content-between'>
           <Link
             to='/create-listing'
@@ -81,7 +78,6 @@ const ShowListing = () => {
           >
             <FiPlus /> Add Listing
           </Link>
-          
         </div>
         <hr />
         <div className='table-responsive'>
