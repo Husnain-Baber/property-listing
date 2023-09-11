@@ -15,12 +15,13 @@ const Header = () => {
   const handleLogout = () => {
     toast.success("You are loggin out")
     localStorage.removeItem("token");
+    localStorage.removeItem("status");
     setToken(null);
     setTimeout(()=>{
       navigate('/login');
     },500)
   }
-  
+
   return (
     <header className="p-3 mb-3 border-bottom">
       <div className="container">
