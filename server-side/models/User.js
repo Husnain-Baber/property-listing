@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator')
 const bcrypt = require('bcryptjs');
 const SALT_WORK_FACTOR = 10;
 
@@ -13,9 +14,14 @@ const UserSchema = new mongoose.Schema({
   },
   email: {
     type: String,
+    unique: true,
     required: true
   },
   password: {
+    type: String,
+    required: true
+  },
+  status: {
     type: String,
     required: true
   },
@@ -24,28 +30,27 @@ const UserSchema = new mongoose.Schema({
     default: Date.now
   }
 });
-
+UserSchema.plugin(uniqueValidator, {  message: 'Error, expected {value} to be unique.' });
 // UserSchema.pre('save', function (next) {
 //   if (this.password) {
 //       this.password = hashPassword(this.password)
 //   }
 //   next()
 // })
-UserSchema.pre("save", function (next) {
-  // store reference
-  const user = this;
-  if (user.password === undefined) {
-      return next();
-  }
-  bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
-      if (err) console.log(err);
-      bcrypt.hash(user.password, salt, function (err, hash) {
-          if (err) console.log(err);
-          user.hashed_password = hash;
-          next();
-      });
-  });
-});
+// UserSchema.pre("save", function (next) {
+//   const user = this;
+//   if (user.password === undefined) {
+//       return next();
+//   }
+//   bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+//       if (err) console.log(err);
+//       bcrypt.hash(user.password, salt, function (err, hash) {
+//           if (err) console.log(err);
+//           user.hashed_password = hash;
+//           next();
+//       });
+//   });
+// });
 
 /**
 * Methods

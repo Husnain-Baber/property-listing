@@ -9,6 +9,8 @@ import { FiPlus } from "react-icons/fi";
 const ShowListing = () => {
   const [properties, setProperties] = useState([]);
   const [loader, setLoader] = useState(true);
+  const [status, setStatus] = useState('');
+
   const navigate = useNavigate();
 
   const navigateDetail = (id) => {
@@ -29,6 +31,10 @@ const ShowListing = () => {
         console.log('Error: ', err);
       });
   };
+  useEffect(() => {
+    setStatus(localStorage.getItem("status"));
+  }, [])
+
   useEffect(() => {
     axios
     .get('http://localhost:8082/api/properties')
@@ -56,9 +62,16 @@ const ShowListing = () => {
         <td>
           <div className="btn-group" role="group" aria-label="Basic mixed styles example">
             <button type="button" className="btn btn-success" onClick={() => navigateDetail(property._id)}> <SlEye /> </button>
-            <button type="button" className="btn btn-secondary" onClick={() => navigateUpdate(property._id)}> <SlPencil /> </button>
-            <button type="button" className="btn btn-danger" onClick={() => 
-                onDeleteClick(property._id)}><SlTrash /> </button>
+            {
+              (status === 'admin' && 
+                <>
+                <button type="button" className="btn btn-secondary" onClick={() => navigateUpdate(property._id)}> <SlPencil /> </button>
+                <button type="button" className="btn btn-danger" onClick={() => 
+                    onDeleteClick(property._id)}><SlTrash /> </button>
+                </>
+                )
+            }
+            
           </div>
         </td>
       </tr>

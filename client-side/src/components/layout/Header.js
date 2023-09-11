@@ -1,11 +1,26 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import ThemeToggle from '../theme-toggle/ThemeToggle'
+import toast, { Toaster } from 'react-hot-toast'
 
 const Header = () => {
+  const navigate = useNavigate();
+  const [isDark, setDark] = useState(false);
+  const [token, setToken] = useState(null);
 
-const [isDark, setDark] = useState(false);
+  useEffect(() => {
+    setToken(localStorage.getItem('token'))
+  },[])
 
+  const handleLogout = () => {
+    toast.success("You are loggin out")
+    localStorage.removeItem("token");
+    setToken(null);
+    setTimeout(()=>{
+      navigate('/login');
+    },500)
+  }
+  
   return (
     <header className="p-3 mb-3 border-bottom">
       <div className="container">
@@ -23,11 +38,22 @@ const [isDark, setDark] = useState(false);
                   invertedIconLogic
                   onChange={() => setDark((prev) => !prev)}
               />
-              <Link to='/login' className="nav-link link-light">Login</Link> <span className='nav-link link-light'> | </span>
-              <Link to='/register' className="nav-link link-light"> Register</Link>
+              {
+                token ? (
+                  <button className="btn logout-btn" onClick={handleLogout}> Logout</button>
+                 
+                ) : (
+                  <>
+                  <Link to='/login' className="nav-link link-light">Login</Link>
+                  <span className='nav-link link-light'> | </span>
+                  <Link to='/register' className="nav-link link-light"> Register</Link>
+                </>
+                )
+              }
           </div>
         </div>
       </div>
+      <Toaster />
     </header>
   )
 }

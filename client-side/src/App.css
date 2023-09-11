@@ -108,8 +108,15 @@ header{
 }
 .instruction{
   display:block;
-  color: #f00;
+  color: #ddd;
   font-size: 12px;
   margin-bottom: 0;
   padding-left:10px;
+}
+.logout-btn{
+  background: transparent;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    margin-left: 20px;
 }

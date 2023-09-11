@@ -1,32 +1,60 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+// import AuthContext from '../../context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import toast, { Toaster } from 'react-hot-toast'
+import { setAuthToken } from '../../setAuthToken';
 
 const Login = () => {
+  // const { setAuth } = useContext(AuthContext)
 const navigate = useNavigate();
+const [email, setEmail] = useState();
+const [password, setPassword] = useState();
+const [token, setToken] = useState(null);
 const [user, setUser] = useState({
     email: '',
     password: ''
   });
-
+  useEffect(() => {
+    var token = localStorage.getItem('token')
+    if(token){
+      navigate('/');
+    }
+    
+  },[])
 const onChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
+    if(e.target.name === 'email'){
+      setEmail(e.target.value);
+    }
+    if(e.target.name === 'password'){
+      setPassword(e.target.value);
+    }
   };
 
 const onSubmit = (e) => {
     e.preventDefault();
     
     axios
-      .get(`http://localhost:8082/api/users/email/${user.email}`)
+      // .post(`http://localhost:8082/api/users/email/${user.email}`)
+      .post('http://localhost:8082/api/users/login', user)
       .then((res) => {
-        console.log(res.data.email)
-        setUser({
-          email: res.data.email,
-          password: res.data.password
-        });
-        // navigate('/');
+        console.log(res)
+
+        toast.success("Login Successfully")
+        const token  =  res.data.token;
+        const status = res.data.status;
+        localStorage.setItem("token", token);
+        localStorage.setItem("status", status);
+        setAuthToken(token);
+        setTimeout(() => {
+          navigate('/');
+        }, 2000);  
       })
       .catch((err) => {
+        
+        // toast.error(err)
+        toast.error(err.response.data.error)
         console.log('Fetch Error: ', err);
       });
   };
@@ -57,6 +85,7 @@ const onSubmit = (e) => {
           </div>
         </form>
       </div>
+      <Toaster />
     </div>
   )
 }

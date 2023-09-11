@@ -1,0 +1,5 @@
+Backend
+mongoose-unique-validator
+
+Frontend
+react-hot-toast

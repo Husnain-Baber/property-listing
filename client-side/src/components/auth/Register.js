@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import toast, { Toaster } from 'react-hot-toast'
 
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
@@ -21,7 +22,8 @@ const Register = () => {
       firstname: '',
       lastname: '',
       email: '',
-      password: ''
+      password: '',
+      status: 'user'
     });
   
     const onChange = (e) => {
@@ -38,30 +40,26 @@ const Register = () => {
     const onSubmit = (e) => {
       e.preventDefault();
       if(!validEmail || !validPwd || !validMatch){
-        alert('Invalid credentials')
+        toast.error('All fields are required with correct detail')
         return
       }
       axios
-        .post('http://localhost:8082/api/users', user)
+        .post('http://localhost:8082/api/users/', user)
         .then((res) => {
-          setUser({
-            firstname: '',
-            lastname: '',
-            email: '',
-            password: ''
-          });
-  
-          // Push to /
-          // navigate('/');
-          console.log('Success');
+          toast.success("Successfully Registered")
+          setTimeout(() => {
+            navigate('/');
+          }, 2000);
+          
         })
         .catch((err) => {
+          toast.error(err.message)
           console.log('Create Error: ', err);
         });
     };
     useEffect(() => {
       const result = EMAIL_REGEX.test(email)
-      // console.log('Result: ' + result)
+      console.log('Result: ' + result)
       // console.log('Email: ' + email)
       setValidEmail(result)
   }, [email])
@@ -75,24 +73,6 @@ const Register = () => {
       setValidMatch(match)
   }, [pwd, matchPwd])
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if(!validEmail || !validPwd || !validMatch){
-      alert('Invalid credentials')
-      console.log('Email error')
-      return
-    }
-    const data = new FormData(event.currentTarget);
-    console.log({
-      firstname: data.get('firstname'),
-      lastname: data.get('lastname'),
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-    // localStorage.setItem('email', JSON.stringify(email));
-    // localStorage.setItem('password', JSON.stringify(pwd));
-
-  };
   return (
     <div className='container'>
       <div className='form_wrapper'>
@@ -101,11 +81,11 @@ const Register = () => {
         <form className="row g-3 my-3" onSubmit={onSubmit}>
           <div className="col-md-6">
             <label htmlFor="firstname" className="form-label">First Name</label>
-            <input type="text" className="form-control" id="firstname" name='firstname' onChange={onChange} />
+            <input type="text" className="form-control" id="firstname" name='firstname' required onChange={onChange} />
           </div>
           <div className="col-md-6">
             <label htmlFor="lastname" className="form-label">Last Name</label>
-            <input type="text" className="form-control" id="lastname" name='lastname' onChange={onChange}/>
+            <input type="text" className="form-control" id="lastname" name='lastname' required onChange={onChange}/>
           </div>
           <div className="col-12">
             <label htmlFor="inputEmail4" className="form-label">Email</label>
@@ -123,7 +103,7 @@ const Register = () => {
           </div>
           <div className="col-md-6">
             <label htmlFor="password" className="form-label">Password</label>
-            <input type="password" className="form-control" id="password" name='password' label="Password"
+            <input type="password" className="form-control" id="password" name='password'
             onChange={onChange}
             aria-invalid={validPwd ? 'false' : 'true'}
               aria-describedby="pwderror"
@@ -162,6 +142,7 @@ const Register = () => {
           </div>
         </form>
       </div>
+      <Toaster />
     </div>
   )
 }
