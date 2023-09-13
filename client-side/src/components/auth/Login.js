@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useLayoutEffect } from 'react'
 // import AuthContext from '../../context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
@@ -8,14 +8,12 @@ import { setAuthToken } from '../../setAuthToken';
 const Login = () => {
   // const { setAuth } = useContext(AuthContext)
 const navigate = useNavigate();
-const [email, setEmail] = useState();
-const [password, setPassword] = useState();
-const [token, setToken] = useState(null);
+
 const [user, setUser] = useState({
     email: '',
     password: ''
   });
-  useEffect(() => {
+  useLayoutEffect(() => {
     var token = localStorage.getItem('token')
     if(token){
       navigate('/');
@@ -24,12 +22,6 @@ const [user, setUser] = useState({
   },[])
 const onChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
-    if(e.target.name === 'email'){
-      setEmail(e.target.value);
-    }
-    if(e.target.name === 'password'){
-      setPassword(e.target.value);
-    }
   };
 
 const onSubmit = (e) => {
@@ -52,8 +44,6 @@ const onSubmit = (e) => {
         }, 2000);  
       })
       .catch((err) => {
-        
-        // toast.error(err)
         toast.error(err.response.data.error)
         console.log('Fetch Error: ', err);
       });
@@ -66,7 +56,6 @@ const onSubmit = (e) => {
         <h2 className='display-5 text-center'>Login Now</h2>
         <hr />
         <form className="row g-3 my-3" onSubmit={onSubmit}>
-          
           <div className="col-12">
             <label htmlFor="inputEmail4" className="form-label">Email</label>
             <input type="email" className="form-control" id="inputEmail4" name='email'
