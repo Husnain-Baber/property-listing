@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useEffect, useState, useLayoutEffect } from 'react'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
 // import PropertyCard from './PropertyCard';
 import Spinner from './Spinner'
 import { SlTrash, SlEye, SlPencil } from "react-icons/sl";
-import { FiPlus } from "react-icons/fi";
 
 const ShowListing = () => {
+  let user_id = '';
   const [properties, setProperties] = useState([]);
   const [loader, setLoader] = useState(true);
   const [status, setStatus] = useState('');
+  const [userid, setUserid] = useState();
 
   const navigate = useNavigate();
+  const location = useLocation();
+ 
 
   const navigateDetail = (id) => {
     navigate(`/show-listing/${id}`)
@@ -31,13 +34,19 @@ const ShowListing = () => {
         console.log('Error: ', err);
       });
   };
-  useEffect(() => {
+  useLayoutEffect(() => {
     setStatus(localStorage.getItem("status"));
-  }, [])
+    user_id = localStorage.getItem("userid");
+    // setUserid(user_id);
+  }, [location.pathname])
 
   useEffect(() => {
+    let listing = '';
+    location.pathname === '/my-listing' ?  listing = `http://localhost:8082/api/properties/property/${user_id}` : listing = `http://localhost:8082/api/properties`;
+    console.log(listing);
+    console.log(userid);
     axios
-    .get('http://localhost:8082/api/properties')
+    .get(listing)
     .then((res) => {
       setProperties(res.data);
       setLoader(false)
@@ -45,7 +54,7 @@ const ShowListing = () => {
     .catch((err) => {
       console.log('Error in show listing: ' , err)
     })
-  }, [])
+  },[location.pathname])
 
   // const propertyList = properties.length === 0 ? 'There is no property listing' : properties.map((property, i) => <PropertyCard property={property} key={i} />)
 
@@ -82,15 +91,7 @@ const ShowListing = () => {
     <div className='ShowPropertyList'>
       <div className=''>
         <div className=''>
-          <h2 className='display-4 text-center'>Property Listing</h2>
-        </div>
-        <div className='d-flex align-itmes-center justify-content-between'>
-          <Link
-            to='/create-listing'
-            className='btn btn-outline-warning float-right'
-          >
-            <FiPlus /> Add Listing
-          </Link>
+          <h2 className='display-4 text-center'>Property Listing </h2>
         </div>
         <hr />
         <div className='table-responsive'>

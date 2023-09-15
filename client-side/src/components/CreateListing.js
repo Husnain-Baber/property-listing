@@ -1,11 +1,13 @@
-import React, { useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 
 const CreateListing = (props) => {
     const navigate = useNavigate();
+    
   const [property, setProperty] = useState({
+    user_id: '',
     title: '',
     description: '',
     property_type: '',
@@ -17,7 +19,10 @@ const CreateListing = (props) => {
     status: '',
     price: '',
   });
-
+  useEffect(() => {
+    let uid = localStorage.getItem('userid');
+    setProperty({...property, ['user_id']: uid });
+  }, [])
   const onChange = (e) => {
     setProperty({ ...property, [e.target.name]: e.target.value });
   };
@@ -29,6 +34,7 @@ const CreateListing = (props) => {
       .post('http://localhost:8082/api/properties', property)
       .then((res) => {
         setProperty({
+            user_id: '',
             title: '',
             description: '',
             property_type: '',
@@ -49,23 +55,17 @@ const CreateListing = (props) => {
       });
   };
   return (
+    
     <div className='CreateProperty'>
       <div className='container'>
         <div className='row'>
           <div className='col-md-8 m-auto'>
-            <br />
-            <Link to='/' className='btn btn-outline-warning float-left'>
-              Show Listing
-            </Link>
-          </div>
-          <div className='col-md-8 m-auto'>
             <h1 className='display-4 text-center'>Add Property</h1>
             <p className='lead text-center'>Create new property</p>
-
               <form noValidate onSubmit={onSubmit}>
                   <div className='row'>
                 <div className='col-md-6 mb-3'>
-                  <label>Title </label>
+                  <label className='form-label'>Title </label>
                   <input
                     type='text'
                     placeholder='E.g: Flat for rent'
@@ -77,7 +77,7 @@ const CreateListing = (props) => {
                 </div>
 
               <div className='col-md-6 mb-3'>
-              <label>Description </label>
+              <label className='form-label'>Description </label>
                 <input
                   type='text'
                   placeholder='Description of the property'
@@ -89,7 +89,7 @@ const CreateListing = (props) => {
               </div>
 
                <div className='col-md-6 mb-3'>
-               <label>Property Type </label>
+               <label className='form-label'>Property Type </label>
                <select className='form-control' name='property_type' onChange={onChange}>
                 <option value=''>Select Property Type</option>
                 <option value='Apartment'>Apartment</option>
@@ -102,7 +102,7 @@ const CreateListing = (props) => {
               </div>
 
               <div className='col-md-6 mb-3'>
-              <label>Floor Level</label>
+              <label className='form-label'>Floor Level</label>
                 <input
                   type='number'
                   placeholder='Floor Level'
@@ -114,7 +114,7 @@ const CreateListing = (props) => {
               </div>
 
               <div className='col-md-6 mb-3'>
-              <label>Number of Rooms</label>
+              <label className='form-label'>Number of Rooms</label>
                 <input
                   type='number'
                   placeholder='No. of rooms'
@@ -125,7 +125,7 @@ const CreateListing = (props) => {
                 />
               </div>
               <div className='col-md-6 mb-3'>
-              <label>Number of Bathrooms </label>
+              <label className='form-label'>Number of Bathrooms </label>
                 <input
                   type='number'
                   placeholder='E.g: 2'
@@ -136,7 +136,7 @@ const CreateListing = (props) => {
                 />
               </div>
               <div className='col-md-6 mb-3'>
-              <label>Total Area </label>
+              <label className='form-label'>Total Area </label>
                 <input
                   type='number'
                   placeholder='E.g: 1200'
@@ -147,7 +147,7 @@ const CreateListing = (props) => {
                 />
               </div>
               <div className='col-md-6 mb-3'>
-              <label>Area Unit </label>
+              <label className='form-label'>Area Unit </label>
               <select className='form-control' name='area_unit' onChange={onChange}>
                 <option value=''>Select Unit</option>
                 <option value='Square meter'>Square meter</option>
@@ -155,17 +155,16 @@ const CreateListing = (props) => {
                </select>
               </div>
               <div className='col-md-6 mb-3'>
-
-                <label>Status </label>
+                <label className='form-label'>Status </label>
                 <div>
-                <div className="form-check form-check-inline">
-                  <input className="form-check-input" type="radio" name="status" id="inlineRadio1" value="Furnished" onChange={onChange} />
-                  <label className="form-check-label" htmlFor="inlineRadio1">Furnished</label>
-                </div>
-                <div className="form-check form-check-inline">
-                  <input className="form-check-input" type="radio" name="status" id="inlineRadio2" value="Not Furnished" onChange={onChange} />
-                  <label className="form-check-label" htmlFor="inlineRadio2">Not Furnished</label>
-                </div>
+                  <div className="form-check form-check-inline">
+                    <input className="form-check-input" type="radio" name="status" id="inlineRadio1" value="Furnished" onChange={onChange} />
+                    <label className="form-check-label" htmlFor="inlineRadio1">Furnished</label>
+                  </div>
+                  <div className="form-check form-check-inline">
+                    <input className="form-check-input" type="radio" name="status" id="inlineRadio2" value="Not Furnished" onChange={onChange} />
+                    <label className="form-check-label" htmlFor="inlineRadio2">Not Furnished</label>
+                  </div>
                 </div>
                 {/* <select className='form-control' name='status' onChange={onChange}>
                   <option value=''>Select Status</option>
@@ -174,7 +173,7 @@ const CreateListing = (props) => {
                 </select> */}
               </div>
               <div className='col-md-6 mb-3'>
-              <label>Price</label>
+              <label className='form-label'>Price</label>
                 <input
                   type='number'
                   placeholder='Price'

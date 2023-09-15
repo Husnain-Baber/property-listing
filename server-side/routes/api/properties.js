@@ -58,12 +58,26 @@ router.delete('/:id', (req, res) => {
 
 // Find listing by title
 
-router.get('/property/:property_type', (req, res) => {
-  Property.find({ property_type: req.params.property_type })
+// router.get('/property/:property_type', (req, res) => {
+//   Property.find({ property_type: req.params.property_type })
+//     .then(property => {
+//       if (!property) {
+//         return res.status(404).json({ propertyNotFound: 'No Property Found with this Query' });
+//       }
+//       res.json(property);
+//     })
+//     .catch(err => res.status(400).json({ error: err }));
+// });
+
+// find property by user id
+router.get('/property/:user_id', (req, res) => {
+  // console.log(res);
+  Property.find({ user_id: req.params.user_id })
     .then(property => {
       if (!property) {
-        return res.status(404).json({ propertyNotFound: 'No Property Found with this Query' });
+        return res.status(404).json({ propertyNotFound: 'No Property Found with this User Id' });
       }
+      console.log(property);
       res.json(property);
     })
     .catch(err => res.status(400).json({ error: err }));

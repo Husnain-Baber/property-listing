@@ -36,8 +36,10 @@ const onSubmit = (e) => {
         toast.success("Login Successfully")
         const token  =  res.data.token;
         const status = res.data.status;
+        const user_id = res.data.id;
         localStorage.setItem("token", token);
         localStorage.setItem("status", status);
+        localStorage.setItem("userid", user_id);
         setAuthToken(token);
         setTimeout(() => {
           navigate('/');
