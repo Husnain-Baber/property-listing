@@ -79,12 +79,6 @@ const EditListing = () => {
       <div className='container'>
         <div className='row'>
           <div className='col-md-8 m-auto'>
-            <br />
-            <Link to='/' className='btn btn-outline-warning float-left'>
-              Show All Listing
-            </Link>
-          </div>
-          <div className='col-md-8 m-auto'>
             <h1 className='display-4 text-center'>Edit Listing</h1>
             <p className='lead text-center'>Update Listing's Info</p>
           </div>

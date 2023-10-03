@@ -35,11 +35,17 @@ const onSubmit = (e) => {
 
         toast.success("Login Successfully")
         const token  =  res.data.token;
-        const status = res.data.status;
-        const user_id = res.data.id;
+        const status = res.data.user.status;
+        const user_id = res.data.user._id;
+        const firstName = res.data.user.firstname;
+        const lastName = res.data.user.lastname;
+        const email = res.data.user.email;
         localStorage.setItem("token", token);
         localStorage.setItem("status", status);
         localStorage.setItem("userid", user_id);
+        localStorage.setItem("firstname", firstName);
+        localStorage.setItem("lastname", lastName);
+        localStorage.setItem("email", email);
         setAuthToken(token);
         setTimeout(() => {
           navigate('/');

@@ -120,3 +120,18 @@ header{
     padding: 10px;
     margin-left: 20px;
 }
+.user-action{
+  background: transparent;
+    border: none;
+    margin-left: 20px;
+}
+.user-action img{
+  border-radius: 50%;
+}
+.blocks-wrapper{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
