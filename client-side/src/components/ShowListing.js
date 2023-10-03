@@ -41,8 +41,8 @@ const ShowListing = () => {
 		}
 		return word
 	}
-	 let result = translate(n) 
-	return result.trim()
+	let result = translate(n) 
+	  return result.trim()
 }
 
   // End

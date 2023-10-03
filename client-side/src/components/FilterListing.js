@@ -3,13 +3,19 @@ import axios from 'axios'
 import MultiRangeSlider from './MultiRangeSlider';
 
 const FilterListing = () => {
-    const [property, setProperty] = useState({});
+    const [property, setProperty] = useState({
+      property_type: 'null',
+      rooms: '0',
+      level: '-1',
+    });
     const onChange = (e) => {
-        setProperty({ [e.target.name]: e.target.value });
+        setProperty({ ...property, [e.target.name]: e.target.value });
+        
       };
     
-      const onSubmit = () => {
-        // e.preventDefault();
+      const onSubmit = (e) => {
+        e.preventDefault();
+        console.log(property);
         // const data = {
             // property_type: property.property_type,
             // description: property.description,
@@ -23,16 +29,16 @@ const FilterListing = () => {
             // price: property.price,
           // };
         axios
-          .get(`http://localhost:8082/api/properties/property/${property.property_type}`)
+          .get(`http://localhost:8082/api/properties/property/${property.property_type}.${property.rooms}.${property.level}`)
           .then((res) => {
-            setProperty({
-                title: res.data[0].title,
-                description: res.data[0].description,
-                property_type: res.data[0].property_type,
-                rooms: res.data[0].rooms,
-                bathrooms: res.data[0].property_type
-            });
-            console.log(res.data[0].title)
+            // setProperty({
+            //     title: res.data[0].title,
+            //     description: res.data[0].description,
+            //     property_type: res.data[0].property_type,
+            //     rooms: res.data[0].rooms,
+            //     bathrooms: res.data[0].property_type
+            // });
+            console.log(res.data)
             // Push to /
             // navigate('/');
           })
@@ -52,7 +58,7 @@ const FilterListing = () => {
                   <div className='col-12 mb-3'>
                     <label className='form-label'>Property Type </label>
                     <select className='form-control' name='property_type' onChange={onChange}>
-                      <option value=''>Select Property Type</option>
+                      <option value='null'>Select Property Type</option>
                       <option value='Apartment'>Apartment</option>
                       <option value='Banglow'>Banglow</option>
                       <option value='House'>House</option>
@@ -64,7 +70,7 @@ const FilterListing = () => {
                   <div className='col-12 mb-3'>
                     <label className='form-label'>Number of Rooms </label>
                     <select className='form-control' name='rooms' onChange={onChange}>
-                      <option value=''>Select No. of Rooms</option>
+                      <option value='0'>Select No. of Rooms</option>
                       <option value='1'>1</option>
                       <option value='2'>2</option>
                       <option value='3'>3</option>
@@ -76,7 +82,7 @@ const FilterListing = () => {
                   <div className='col-12 mb-3'>
                     <label className='form-label'>Floor Level </label>
                     <select className='form-control' name='level' onChange={onChange}>
-                      <option value=''>Select Floor Level</option>
+                      <option value='-1'>Select Floor Level</option>
                       <option value='0'>0</option>
                       <option value='1'>1</option>
                       <option value='2'>2</option>
@@ -86,14 +92,14 @@ const FilterListing = () => {
                       <option value='6'>6</option>
                     </select>
                   </div>
-                  <div className='col-12 mb-3'>
+                  {/* <div className='col-12 mb-3'>
                   <label className='form-label'>Covered Area Range</label>
                   <MultiRangeSlider
                     min={10}
                     max={2000}
                     onChange={({ min, max }) => console.log(`min = ${min}, max = ${max}`)}
                   />
-                  </div>
+                  </div> */}
                 
                 <button
                     type='submit'
